@@ -375,8 +375,8 @@
 
             <div class="btn-group">
                 <button class="os-btn btn-yes" onclick="startUpgrade()">YES, UPGRADE</button>
-                <button class="os-btn btn-no" id="btnNo" onmouseenter="runAway()" onclick="runAway()"
-                    ontouchstart="runAway()">STAY 25</button>
+                <button class="os-btn btn-no" id="btnNo" onmouseenter="runAway(event)" onclick="runAway(event)"
+                    ontouchstart="runAway(event)">STAY 25</button>
             </div>
         </div>
     </div>
@@ -427,31 +427,36 @@
         const btnNo = document.getElementById('btnNo');
         let isButtonMoved = false;
 
-        function runAway() {
+        function runAway(e) {
+            // Prevent default behavior to verify intent and stop propagation (especially on mobile)
+            if (e) e.preventDefault();
+
             // First time run: Move button to body to escape the transformed OS window container
             if (!isButtonMoved) {
                 document.body.appendChild(btnNo);
                 isButtonMoved = true;
             }
 
-            // Get viewport dimensions
-            const vw = Math.min(document.documentElement.clientWidth || window.innerWidth, window.screen.width);
-            const vh = Math.min(document.documentElement.clientHeight || window.innerHeight, window.screen.height);
+            // Get viewport dimensions (use innerHeight/Width for mobile accuracy)
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
 
             // Button dimensions
             const btnW = btnNo.offsetWidth || 150;
             const btnH = btnNo.offsetHeight || 50;
 
-            // Calculate safe area
-            const safeX = vw - btnW - 40;
-            const safeY = vh - btnH - 40;
+            // Calculate safe area with padding
+            const padding = 20;
+            const safeX = vw - btnW - padding;
+            const safeY = vh - btnH - padding;
 
             // Random position
             let newX = Math.random() * safeX;
             let newY = Math.random() * safeY;
 
-            if (newX < 20) newX = 20;
-            if (newY < 20) newY = 20;
+            // Clamp values to ensure it stays on screen
+            newX = Math.max(padding, Math.min(newX, safeX));
+            newY = Math.max(padding, Math.min(newY, safeY));
 
             // Apply fixed positioning
             btnNo.style.position = 'fixed';

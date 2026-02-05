@@ -375,7 +375,8 @@
 
             <div class="btn-group">
                 <button class="os-btn btn-yes" onclick="startUpgrade()">YES, UPGRADE</button>
-                <button class="os-btn btn-no" id="btnNo" onmouseenter="runAway()">STAY 25</button>
+                <button class="os-btn btn-no" id="btnNo" onmouseenter="runAway()" onclick="runAway()"
+                    ontouchstart="runAway()">STAY 25</button>
             </div>
         </div>
     </div>
@@ -464,7 +465,11 @@
                 "SYSTEM: Mandatory security patch 'Age 26' required.",
                 "WARNING: Temporal loophole closed. Proceeding...",
                 "CRITICAL: User resistance detected. Retrying...",
-                "LOG: Attempting to bypass maturity firewall... access denied."
+                "LOG: Attempting to bypass maturity firewall... access denied.",
+                "ERROR: Peter Pan module not found. Please install adulthood.exe.",
+                "SYSTEM: Time travel functionality is currently deprecated.",
+                "WARNING: Denial levels critical. Increasing cake dosage recommended.",
+                "ALERT: Your free trial of 'Youth' has expired."
             ];
             typeText(logs[Math.floor(Math.random() * logs.length)]);
         }
@@ -497,6 +502,7 @@
             const audio = new Audio('bg_music.mp3');
             audio.currentTime = 67; // 1:07 in seconds
             audio.volume = 0.8;
+            audio.playbackRate = 0.9; // Slowed down slightly
             audio.play().catch(e => console.log("Audio autoplay blocked:", e));
 
             // Confetti Explosion
@@ -547,12 +553,12 @@
         // --- Karaoke System ---
         // Precise timing adjustment (in milliseconds)
         const lyricsData = [
-            { text: "Oh, since the day I saw you... 🎵", duration: 4000 },
-            { text: "I have been waiting for you... 🎵", duration: 4000 },
-            { text: "You know, I will adore you... ❤️", duration: 2500 }, // Reduced for immediate transition
-            { text: "'Til eternity... ✨", duration: 2000 }, // Reduced for immediate transition
-            { text: "So won't you, please... 🙏", duration: 3000 },
-            { text: "Be my baby now! 💖", duration: 5000 }
+            { text: "Oh, since the day I saw you... 🎵", duration: 4450 },
+            { text: "I have been waiting for you... 🎵", duration: 4450 },
+            { text: "You know, I will adore you... ❤️", duration: 2800 }, // SYNCED
+            { text: "'Til eternity... ✨", duration: 2200 }, // SYNCED
+            { text: "So won't you, please... 🙏", duration: 3350 },
+            { text: "Be my baby now! 💖", duration: 5550 }
         ];
 
         async function playLyrics() {
@@ -576,9 +582,6 @@
                 // Wait for the duration of the line
                 await new Promise(r => setTimeout(r, line.duration));
             }
-
-            // Final message
-            container.innerHTML = `<span class="lyric-line" style="color:#ff4757; font-size: 1.4rem;">I love you! ❤️</span>`;
         }
 
     </script>
